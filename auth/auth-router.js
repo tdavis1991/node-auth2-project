@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Users = require('../users/users-model')
+const restricted = require('../middleware/restricted')
 
 const router = express.Router()
 
@@ -44,7 +45,7 @@ router.post('/login', async(req, res, next) => {
         }
 
         res.cookie('token', jwt.sign(tokenPayload, process.env.JWT_SECRET))
-
+        console.log(user)
         res.json({
             message: `Welcome ${user.username}!`
         })
@@ -52,3 +53,5 @@ router.post('/login', async(req, res, next) => {
         next(err)
     }
 })
+
+module.exports = router

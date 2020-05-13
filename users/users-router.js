@@ -1,11 +1,11 @@
 const express = require("express")
 const Users = require("./users-model")
-const restrict = require("../middleware/restrict")
+const restricted = require("../middleware/restricted")
 
 const router = express.Router()
 
 
-router.get("/", restrict("admin"), async (req, res, next) => {
+router.get("/", restricted("admin"), async (req, res, next) => {
 	try {
 		res.json(await Users.find())
 	} catch(err) {
